@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import '../static/bootstrap.min.css'
+import '../static/chartist.min.css'
 
 Vue.config.productionTip = false
 
