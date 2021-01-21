@@ -25,7 +25,7 @@ export default {
 
 <style scoped>
   .personnel-card {
-    margin: 50px 75px;
+    margin: 3.5vw 4vw;
     border-radius: 15px;
     padding: 15px;
     transition: all .2s ease-in-out;
@@ -50,8 +50,8 @@ export default {
   }
 
   .personnel-info-avatar {
-    width: 55px;
-    height: 55px;
+    width: 3.5vw;
+    height: 3.5vw;
     border-radius: 50%;
     border: solid 0.5px;
     border-color: #d6d3d3;
@@ -76,13 +76,13 @@ export default {
   }
 
   .info-name {
-    font-size: 30px;
+    font-size: 2vw;
     font-weight: bold;
     color: #ffffff;
   }
 
   .info-duites {
-    font-size: 15px;
+    font-size: 1vw;
     color: #8c8c8c;
   }
 </style>

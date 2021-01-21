@@ -3,9 +3,9 @@
 </template>
 
 <script>
-export default {
-  name: 'list'
-}
+  export default {
+    name: 'IndexSet'
+  }
 </script>
 
 <style scoped>
