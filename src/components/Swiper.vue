@@ -4,10 +4,10 @@
       <ol class="carousel-indicators">
         <li data-bs-target="#carouselExampleCaptions" v-for="(item, index) in urls"  :data-bs-side-to="index" :class="index===0?'active':''" :key="index"></li>
       </ol>
-      <div class="carousel-inner">
+      <div class="carousel-inner full">
         <div v-for="(item, index) in urls" :class="index===0?'carousel-item active':'carousel-item'" :key="index" style="position: relative">
-          <div class="blur" :style="{'background': 'url('+item+')'}" ></div>
-          <img id="show-images" :src="item" alt="...">
+          <!-- div class="blur" :style="{'background': 'url('+item+')'}" ></div=-->
+          <img id="show-images" class="img-fluid" :src="item" alt="..."/>
           <div class="carousel-caption d-none d-md-block" >
             <p>{{descriptions[index]}}</p>
           </div>
@@ -40,15 +40,27 @@ export default {
 <style scoped>
 
   #show-images{
-    position: absolute;
-    width: 1200px;
-    height: 500px;
-    transform: translate(-50%, -110%);
+    overflow: hidden;
+    background-size:cover;
+    border-radius: 15px;
   }
 
   .blur {
     width: 100%;
     height: 600px;
     filter: blur(100px);
+  }
+
+  .swiper {
+    margin-top: 50px;
+  }
+
+  .full {
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-item {
+    border-radius: 15px;
   }
 </style>
