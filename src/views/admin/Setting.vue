@@ -74,11 +74,17 @@
                 <div class="form-text card-left">输入当前二次验证信息</div>
               </div>
               <div class="mb-5">
-                <label class="form-label card-left">新密钥</label>
-                <input type="text" class="form-control">
+                <label class="form-label card-left" >新密钥</label>
+                <input type="text" class="form-control" disabled>
                 <div class="form-text card-left">请在手机上导入密钥信息，或扫描二维码</div>
               </div>
-              <button class="btn btn-primary" style="float: right">保存修改</button>
+              <div class="mb-5">
+                <label class="form-label card-left">验证码New</label>
+                <input type="text" class="form-control">
+                <div class="form-text card-left">输入当前同步的新二次验证信息</div>
+              </div>
+              <button class="btn btn-primary" style="float: right; margin-left: 1vw">保存修改</button>
+              <button class="btn btn-info" style="float: right">生成新密钥</button>
             </form>
           </div>
           <div class="col-lg-1"/>
