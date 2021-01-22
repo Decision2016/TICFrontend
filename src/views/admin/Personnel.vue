@@ -1,7 +1,7 @@
 <template>
-  <div class="personnel-page">
+  <div class="personnel-page page-top">
     <div class="personnel-alert">
-      <div class="alert alert-info" role="alert" style="margin:0.5vw 2vw;">
+      <div class="alert alert-info" role="alert" style="margin:0 2vw;">
         为了保证主页的正常显示，建议添加人数在4人及以下，如果需要添加更多人数需要微调一下前端代码。
       </div>
     </div>

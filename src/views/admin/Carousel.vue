@@ -1,6 +1,6 @@
 <template>
-  <div class="carousel-set">
-    <div class="card"  style="margin: 1.5vw 2vw;min-height: 40vw;">
+  <div class="carousel-set page-top">
+    <div class="card"  style="margin: 0 2vw;min-height: 41.5vw;">
       <div class="card-body">
         <div class="card-title">
           <button class="btn btn-primary" style="float: right">添加新的图片</button>
