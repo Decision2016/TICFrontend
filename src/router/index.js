@@ -6,6 +6,7 @@ import Index from '@/views/admin/Index'
 import Carousel from '@/views/admin/Carousel'
 import Login from '@/views/admin/Login'
 import Logout from '@/views/admin/Logout'
+import Personnel from '@/views/admin/Personnel'
 
 Vue.use(Router)
 
@@ -30,6 +31,11 @@ export default new Router({
           path: 'carousel',
           name: 'Carousel',
           component: Carousel
+        },
+        {
+          path: 'personnel',
+          name: 'Personnel',
+          component: Personnel
         }
       ]
     },
