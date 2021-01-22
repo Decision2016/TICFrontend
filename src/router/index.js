@@ -7,6 +7,8 @@ import Carousel from '@/views/admin/Carousel'
 import Login from '@/views/admin/Login'
 import Logout from '@/views/admin/Logout'
 import Personnel from '@/views/admin/Personnel'
+import Articles from '@/views/admin/Articles'
+import Setting from '@/views/admin/Setting'
 
 Vue.use(Router)
 
@@ -36,6 +38,16 @@ export default new Router({
           path: 'personnel',
           name: 'Personnel',
           component: Personnel
+        },
+        {
+          path: 'articles',
+          name: 'Articles',
+          component: Articles
+        },
+        {
+          path: 'setting',
+          name: 'Setting',
+          component: Setting
         }
       ]
     },
