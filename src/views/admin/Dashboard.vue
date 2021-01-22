@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard">
+  <div class="dashboard" style="background: #f4f8f9;">
     <!--Top Navbar start-->
     <div class="dashboard-navbar">
       <nav class="navbar navbar-expand-lg navbar-light bg-light dashboard-bar">
@@ -59,8 +59,7 @@ export default {
     z-index: 10;
     position: absolute;
     width: 265px;
-    margin-top: 57px;
-    padding-top:2vw;
+    padding-top: 57px;
     height: 100%;
     top: 0;
     overflow-y: auto;
@@ -88,8 +87,12 @@ export default {
 
   .page-wrapper {
     background: #f4f8f9;
-    padding-bottom: 60px;
+    padding-bottom: 15px;
   }
+
+  .navbar {
+     z-index: 1000;
+   }
 
   @media (min-width: 1024px){
     .page-wrapper {
