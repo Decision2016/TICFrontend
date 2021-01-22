@@ -18,4 +18,8 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+
+.row {
+  width: 100%;
+}
 </style>

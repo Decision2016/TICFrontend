@@ -28,7 +28,7 @@ export default {
     margin: 3.5vw 4vw;
     border-radius: 15px;
     padding: 15px;
-    transition: all .2s ease-in-out;
+    transition: all .5s ease-in-out;
     background-color: rgb(38,40,54);
   }
 

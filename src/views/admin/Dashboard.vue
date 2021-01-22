@@ -20,9 +20,7 @@
               </div>
               <p class="profile-text">Decision</p>
             </div>
-            <nav class="sidebar-nav active">
-              <ul id="side-menu" class="in"></ul>
-            </nav>
+            <Sidebar/>
           </div>
         </div>
       </aside>
@@ -36,8 +34,10 @@
 </template>
 
 <script>
+import Sidebar from '@/components/Sidebar'
 export default {
   name: 'Dashboard',
+  components: {Sidebar},
   data () {
     return {
       url: 'https://avatars0.githubusercontent.com/u/25838809?s=460&v=4'
