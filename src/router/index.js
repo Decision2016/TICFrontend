@@ -9,6 +9,7 @@ import Logout from '@/views/admin/Logout'
 import Personnel from '@/views/admin/Personnel'
 import Articles from '@/views/admin/Articles'
 import Setting from '@/views/admin/Setting'
+import Log from '@/views/admin/Log'
 
 Vue.use(Router)
 
@@ -48,6 +49,11 @@ export default new Router({
           path: 'setting',
           name: 'Setting',
           component: Setting
+        },
+        {
+          path: 'log',
+          name: 'log',
+          component: Log
         }
       ]
     },
