@@ -1,17 +1,17 @@
 <template>
-  <div class="articles row" style="width: 100%">
+  <div class="articles row" style="width: 100%; margin: 1.5vw 0;">
     <div class="col-lg-1"/>
     <div class="article-item col-lg-6">
       <div class="article-title">{{info.title}}</div>
-      <div class="article-author">
-        <img class="author-avatar" :src="info.avatar"/>
-        <div class="author-name">{{info.author}}</div>
-      </div>
       <div class="article-about">
         {{info.about}}
       </div>
-      <div class="article-footer">
-        <div class="article-time">时间：{{info.time}}</div>
+      <div class="article-footer" style="margin-top: 1vw">
+        <div class="article-author">
+          <!--img class="author-avatar" :src="info.avatar"/-->
+          <div class="author-name">{{info.author}}</div>
+        </div>
+        <div class="article-time">时间：{{info.datetime}}</div>
         <a class="article-readmore" :href="info.url">阅读更多</a>
       </div>
     </div>
@@ -37,7 +37,7 @@ export default {
   .article-author {
     padding: 10px;
     display: flex;
-    float: right;
+    float: left;
     align-items: center;
   }
 
@@ -48,7 +48,6 @@ export default {
   }
 
   .author-name {
-    margin-left: 10px;
     color: #dbdbdb;
   }
 
@@ -67,6 +66,13 @@ export default {
   }
 
   .article-readmore {
-    float: right;
+    flex: 1;
+    text-align: right;
+  }
+
+  .article-footer {
+    margin-top: 1vw;
+    display: flex;
+    align-items: center;
   }
 </style>

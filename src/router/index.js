@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/views/front/home'
 import Dashboard from '@/views/admin/Dashboard'
-import Index from '@/views/admin/Index'
 import Carousel from '@/views/admin/Carousel'
 import Login from '@/views/admin/Login'
 import Logout from '@/views/admin/Logout'
@@ -28,7 +27,7 @@ export default new Router({
         {
           path: '',
           name: 'Dashboard',
-          component: Index
+          component: Log
         },
         {
           path: 'carousel',
