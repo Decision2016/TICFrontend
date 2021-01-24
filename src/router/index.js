@@ -9,15 +9,20 @@ import Personnel from '@/views/admin/Personnel'
 import Articles from '@/views/admin/Articles'
 import Setting from '@/views/admin/Setting'
 import Log from '@/views/admin/Log'
+import storage from '@/utils/storage'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
       name: 'Home',
-      component: Home
+      component: Home,
+      meta: {
+        title: '主页',
+        requiresAuth: false
+      }
     },
     {
       path: '/admin',
@@ -27,44 +32,103 @@ export default new Router({
         {
           path: '',
           name: 'Dashboard',
-          component: Log
+          component: Log,
+          meta: {
+            title: '仪表盘',
+            requiresAuth: true
+          }
         },
         {
           path: 'carousel',
           name: 'Carousel',
-          component: Carousel
+          component: Carousel,
+          meta: {
+            title: '轮播图管理',
+            requiresAuth: true
+          }
         },
         {
           path: 'personnel',
           name: 'Personnel',
-          component: Personnel
+          component: Personnel,
+          meta: {
+            title: '成员管理',
+            requiresAuth: true
+          }
         },
         {
           path: 'articles',
           name: 'Articles',
-          component: Articles
+          component: Articles,
+          meta: {
+            title: '文章管理',
+            requiresAuth: true
+          }
         },
         {
           path: 'setting',
           name: 'Setting',
-          component: Setting
+          component: Setting,
+          meta: {
+            title: '设置',
+            requiresAuth: true
+          }
         },
         {
           path: 'log',
           name: 'log',
-          component: Log
+          component: Log,
+          meta: {
+            title: '日志记录',
+            requiresAuth: true
+          }
         }
-      ]
+      ],
+      meta: {
+        title: '后台',
+        requiresAuth: true
+      }
     },
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: Login,
+      meta: {
+        title: '登录',
+        requiresAuth: false
+      }
     },
     {
       path: '/logout',
       name: 'Logout',
-      component: Logout
+      component: Logout,
+      meta: {
+        title: '登出',
+        requiresAuth: true
+      }
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    console.log(storage.get('authed'))
+    if (!storage.get('authed')) {
+      next({
+        name: 'Login'
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+  next()
+
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+  next()
+})
+
+export default router

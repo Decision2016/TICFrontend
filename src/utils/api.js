@@ -6,8 +6,14 @@ axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.withCredentials = true
 
 export default{
-  login_require () {
-    return ajax('/api/login_require', 'get', {})
+  login_require (mark, timestamp, nonce) {
+    return ajax('/api/login_require', 'get', {
+      params: {
+        mark_info: mark,
+        timestamp: timestamp,
+        nonce: nonce
+      }
+    })
   },
 
   login (markinfo, ciphertext) {
