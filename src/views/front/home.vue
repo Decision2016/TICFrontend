@@ -25,6 +25,7 @@
         </div>
       </div>
       <div class="footer-line" style="border-bottom: solid 0.5px;color:white;margin: 10px auto;width: 85%"></div>
+      <p class="footer-record" v-show="websiteInfo.record_switch">{{websiteInfo.record}}</p>
       <p class="footer-copyright">Copyright © 电子科技大学TIC 2021</p>
     </div>
   </div>
@@ -43,6 +44,7 @@ export default {
     return {
       carousel: [],
       personnel: [],
+      websiteInfo: {},
       articles: [
         {
           title: '7位顶尖科学家跨越4大洲如约而至｜2020腾讯科学WE大会',
@@ -61,16 +63,13 @@ export default {
       ]
     }
   },
-  mounted () {
-    this.refreshData()
-  },
-  methods: {
-    refreshData: async function () {
-      let res = await api.getCarousel()
-      this.carousel = res.data
-      res = await api.getPersonnel()
-      this.personnel = res.data
-    }
+  mounted: async function () {
+    let res = await api.getCarousel()
+    this.carousel = res.data
+    res = await api.getPersonnel()
+    this.personnel = res.data
+    res = await api.websiteInfo()
+    this.websiteInfo = res.data
   }
 }
 </script>
@@ -107,7 +106,15 @@ export default {
     font-size: 1vw;
     color: #fff;
     font-weight: 700;
-    padding: 2vw 0 2vw 0;
+    padding-bottom: 1vw;
+    margin-bottom: 0;
+  }
+
+  .footer-record {
+    font-size: 1vw;
+    color: #fff;
+    font-weight: 700;
+    padding-bottom: 1vw;
     margin-bottom: 0;
   }
 </style>

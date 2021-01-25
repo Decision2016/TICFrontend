@@ -102,6 +102,7 @@
 
 <script>
 import api from '@/utils/api'
+import Vue from 'vue'
 export default {
   name: 'Carousel',
   data () {
@@ -147,6 +148,7 @@ export default {
       await api.delCarousel(this.carousels[this.deleteIndex]._id)
       this.acceptModal.hide()
       this.refreshData()
+      Vue.prototype.$success('删除成功')
     },
     chooseFile (event) {
       let file = event.target.files[0]
@@ -181,6 +183,7 @@ export default {
           if (res.code !== 0) { return }
           this.carouselModal.hide()
           this.refreshData()
+          Vue.prototype.$success('添加成功')
         }
         reader.readAsDataURL(data)
       })

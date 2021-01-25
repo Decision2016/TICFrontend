@@ -16,7 +16,7 @@ module.exports = {
         target: 'http://localhost:8000/',
         changeOrigin: true,
       },
-      '/static': {
+      '/sources': {
         secure: false,
         target: 'http://localhost:8000/',
         changeOrigin: true,

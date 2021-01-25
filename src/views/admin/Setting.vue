@@ -10,25 +10,25 @@
             <form>
               <div class="mb-5">
                 <label class="form-label card-left">网站标题</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" v-model="websiteInfo.title">
                 <div class="form-text card-left">在这里设置网站主页显示标题名</div>
               </div>
               <div class="mb-5">
                 <label class="form-label card-left">备案信息</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" v-model="websiteInfo.record">
                 <div class="form-text card-left">备案信息填写，如果没有留空</div>
               </div>
-              <button class="btn btn-primary" style="float: right">保存修改</button>
+              <button class="btn btn-primary" style="float: right" @click="changeWebsiteInfo">保存修改</button>
             </form>
           </div>
           <div class="col-lg-1"/>
           <div class="col-lg-2">
             <div class="form-check form-switch mb-4">
-              <input class="form-check-input" type="checkbox" id="recordSwitch" checked>
+              <input class="form-check-input" type="checkbox" id="recordSwitch" :checked="websiteInfo.record_switch" @click="websiteSwitch('record')">
               <label class="form-check-label" for="recordSwitch">备案信息展示</label>
             </div>
             <div class="form-check form-switch mb-4">
-              <input class="form-check-input" type="checkbox" id="maintainSwitch" checked>
+              <input class="form-check-input" type="checkbox" id="maintainSwitch" :checked="websiteInfo.maintain" @click="websiteSwitch('maintain')">
               <label class="form-check-label" for="recordSwitch">开启维护</label>
             </div>
           </div>
@@ -45,20 +45,20 @@
             <form>
               <div class="mb-5">
                 <label class="form-label card-left">管理员用户名</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" v-model="userInfo.username">
                 <div class="form-text card-left">修改管理员用户名</div>
               </div>
               <div class="mb-5">
                 <label class="form-label card-left">管理员邮箱</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" v-model="userInfo.email">
                 <div class="form-text card-left">修改管理员邮箱，用于显示头像，找回密码等</div>
               </div>
               <div class="mb-5">
                 <label class="form-label card-left">管理员密码</label>
-                <input type="password" class="form-control">
+                <input type="password" class="form-control" v-model="password">
                 <div class="form-text card-left">修改管理员密码</div>
               </div>
-              <button class="btn btn-danger" style="float: right" data-bs-toggle="modal" data-bs-target="#verifyModal">保存修改</button>
+              <button class="btn btn-danger" style="float: right" data-bs-toggle="modal" data-bs-target="#verifyModal" @click="isChangeUser=true">保存修改</button>
             </form>
           </div>
         </div>
@@ -74,20 +74,22 @@
             <form>
               <div class="mb-5">
                 <label class="form-label card-left" >新密钥</label>
-                <input type="text" class="form-control" disabled>
+                <input type="text" class="form-control" disabled v-model="new_sec">
                 <div class="form-text card-left">请在手机上导入密钥信息，或扫描二维码</div>
               </div>
               <div class="mb-5">
                 <label class="form-label card-left">验证码New</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" v-model="new_code">
                 <div class="form-text card-left">输入当前同步的新二次验证信息</div>
               </div>
-              <button class="btn btn-primary" style="float: right; margin-left: 1vw" data-bs-toggle="modal" data-bs-target="#verifyModal">保存修改</button>
-              <button class="btn btn-info" style="float: right">生成新密钥</button>
+              <button class="btn btn-primary" style="float: right; margin-left: 1vw" data-bs-toggle="modal" data-bs-target="#verifyModal" @click="isChangeVerify = true">保存修改</button>
+              <button class="btn btn-info" style="float: right" @click="generateSec">生成新密钥</button>
             </form>
           </div>
           <div class="col-lg-1"/>
-          <div class="col-lg-3"></div>
+          <div class="col-lg-3">
+            <div ref="qrcode" class="mt-4"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -100,16 +102,16 @@
           </div>
           <div class="modal-body">
             <form>
-              <div class="mb5-">
+              <div class="mb-5">
                 <label class="form-label" style="float:left;">输入当前的Google验证码:</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" v-model="code">
                 <div class="form-text" style="float: left">注意：在30min内，只有5次输入机会。</div>
               </div>
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-danger">确定</button>
+            <button type="button" class="btn btn-danger" @click="accept">确定</button>
           </div>
         </div>
       </div>
@@ -118,8 +120,95 @@
 </template>
 
 <script>
+import api from '@/utils/api'
+import QRCode from 'qrcodejs2'
+import Vue from 'vue'
 export default {
-  name: 'Setting'
+  name: 'Setting',
+  data () {
+    return {
+      userInfo: {},
+      websiteInfo: {},
+      password: '',
+      new_sec: '',
+      new_code: '',
+      code: '',
+      qrcode_url: '',
+      isChangeUser: false,
+      isChangeVerify: false
+    }
+  },
+  mounted () {
+    this.refreshData()
+    // eslint-disable-next-line no-undef
+    this.verifyModal = new bootstrap.Modal(document.getElementById('verifyModal'))
+  },
+  methods: {
+    refreshData: async function () {
+      let res = await api.info()
+      this.userInfo = res.data
+
+      res = await api.websiteInfo()
+      this.websiteInfo = res.data
+    },
+    generateSec: async function () {
+      let res = await api.generateSecret()
+      this.new_sec = res.data.sec
+      this.qrcode_url = 'otpauth://totp/' + this.userInfo.username + ':' + this.userInfo.email + '?secret=' + res.data.sec + '&issuer=TIC-Website'
+      // eslint-disable-next-line no-unused-vars
+      const qrcode = new QRCode(this.$refs.qrcode, {
+        text: this.qrcode_url,
+        width: 150,
+        height: 150,
+        colorDark: '#000000',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.H
+      })
+    },
+    changeVerify: async function () {
+      let res = await api.changeSecret(this.code, this.new_sec, this.new_code)
+      console.log(res)
+      this.isChangeVerify = false
+      this.refreshData()
+      this.verifyModal.hide()
+      Vue.prototype.$success('修改成功')
+    },
+    changeUser: async function () {
+      let res = await api.changeUserInfo(this.userInfo.username, this.password, this.userInfo.email, this.code)
+      if (res.code !== 0) {
+        Vue.prototype.$error('验证信息错误或尝试次数太多')
+        return
+      }
+      this.isChangeVerify = false
+      this.refreshData()
+      this.verifyModal.hide()
+      Vue.prototype.$success('修改成功')
+    },
+    accept () {
+      if (this.isChangeVerify) {
+        this.changeVerify()
+      }
+      if (this.isChangeUser) {
+        this.changeUser()
+      }
+    },
+    changeWebsiteInfo: async function () {
+      let res = await api.changeWebsiteInfo(this.websiteInfo.title, this.websiteInfo.record)
+      if (res.code !== 0) {
+        Vue.prototype.$error('发生错误')
+        return
+      }
+      Vue.prototype.$success('修改成功')
+    },
+    websiteSwitch: async function (item) {
+      let res = await api.switch(item)
+      if (res.code === 0) {
+        res = await api.websiteInfo()
+        this.websiteInfo = res.data
+      }
+      Vue.prototype.$success('切换成功')
+    }
+  }
 }
 </script>
 

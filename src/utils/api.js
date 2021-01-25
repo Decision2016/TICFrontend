@@ -33,12 +33,11 @@ export default{
     return ajax('/api/website', 'get', {})
   },
 
-  changeWebsiteInfo (title, record, recordSwitch) {
+  changeWebsiteInfo (title, record) {
     return ajax('/api/website', 'post', {
       data: {
         title: title,
-        record: record,
-        record_switch: recordSwitch
+        record: record
       }
     })
   },
@@ -167,6 +166,14 @@ export default{
     return ajax('/api/personnel', 'delete', {
       data: {
         id: id
+      }
+    })
+  },
+
+  switch (itemName) {
+    return ajax('/api/switch', 'get', {
+      params: {
+        switch: itemName
       }
     })
   }

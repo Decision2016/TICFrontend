@@ -1,4 +1,3 @@
-<script src="../../utils/api.js"></script>
 <template>
   <div class="personnel-page page-top">
     <div class="personnel-alert">
@@ -115,6 +114,7 @@
 
 <script>
 import api from '@/utils/api'
+import Vue from 'vue'
 export default {
   name: 'Personnel',
   data () {
@@ -179,6 +179,7 @@ export default {
       await api.delPersonnel(this.personnel[this.deleteIndex]._id)
       this.acceptModal.hide()
       this.refreshData()
+      Vue.prototype.$success('删除成功')
     },
     upload () {
       let that = this
@@ -195,7 +196,7 @@ export default {
           let url = res.data.file_path
           res = await api.addPersonnel(that.addInfo.name, url, that.addInfo.duties)
           if (res.code !== 0) { return }
-          console.log('add successful')
+          Vue.prototype.$success('人员添加成功')
           this.infoModal.hide()
           this.refreshData()
         }
