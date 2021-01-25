@@ -141,12 +141,16 @@ export default{
     })
   },
 
-  getArticles () {
+  getHomeArticles () {
     return ajax('/api/articles', 'get', {})
   },
 
+  getArticles () {
+    return ajax('/api/articles_manage', 'get', {})
+  },
+
   addArticle (url) {
-    return ajax('/api/personnel', 'post', {
+    return ajax('/api/articles_manage', 'post', {
       data: {
         vx_url: url
       }
@@ -154,7 +158,7 @@ export default{
   },
 
   editArticle (id, desc) {
-    return ajax('/api/personnel', 'put', {
+    return ajax('/api/articles_manage', 'put', {
       data: {
         id: id,
         desc: desc
@@ -163,7 +167,7 @@ export default{
   },
 
   delArticle (id) {
-    return ajax('/api/personnel', 'delete', {
+    return ajax('/api/articles_manage', 'delete', {
       data: {
         id: id
       }
@@ -174,6 +178,14 @@ export default{
     return ajax('/api/switch', 'get', {
       params: {
         switch: itemName
+      }
+    })
+  },
+
+  getArticle (id) {
+    return ajax('/api/detail', 'get', {
+      params: {
+        id: id
       }
     })
   }

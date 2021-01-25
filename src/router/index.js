@@ -10,6 +10,7 @@ import Articles from '@/views/admin/Articles'
 import Setting from '@/views/admin/Setting'
 import Log from '@/views/admin/Log'
 import storage from '@/utils/storage'
+import Detail from '@/views/front/Detail'
 
 Vue.use(Router)
 
@@ -21,6 +22,15 @@ const router = new Router({
       component: Home,
       meta: {
         title: '主页',
+        requiresAuth: false
+      }
+    },
+    {
+      path: '/detail',
+      name: 'Detail',
+      component: Detail,
+      meta: {
+        title: '文章详情',
         requiresAuth: false
       }
     },

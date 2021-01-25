@@ -3,7 +3,7 @@
     <div class="card"  style="margin: 0 2vw;min-height: 41.5vw;">
       <div class="card-body">
         <div class="card-title">
-          <button class="btn btn-primary" style="float: right">添加新文章</button>
+          <button class="btn btn-primary" style="float: right" data-bs-toggle="modal" data-bs-target="#articlesModal">添加新文章</button>
           <button class="btn btn-primary" style="float: right; margin-right: 1vw">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
@@ -15,20 +15,25 @@
           <table class="table">
             <thead>
             <tr>
-              <th scope="col">Avatar</th>
-              <th scope="col">Author</th>
+              <th scope="col">#</th>
               <th scope="col">Title</th>
+              <th scope="col">Author</th>
+              <th scope="col">Description</th>
+              <th scope="col">Datetime</th>
               <th scope="col">Setting</th>
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(item, index) in personnel" :key="index">
-              <td><img :src="item.avatar" style="width: 3vw;height: 3vw" class="personnel-avatar"></td>
-              <td>{{item.name}}</td>
-              <td>{{item.duties}}</td>
+            <tr v-for="(item, index) in articles" :key="index">
+              <!--td><img :src="item.avatar" style="width: 3vw;height: 3vw" class="personnel-avatar"></td-->
+              <td>{{index + 1}}</td>
+              <td>{{item.title}}</td>
+              <td>{{item.author}}</td>
+              <td>{{item.description}}</td>
+              <td>{{item.date}}</td>
               <td>
-                <button class="btn btn-primary">编辑</button>
-                <button class="btn btn-danger">删除</button>
+                <!--button class="btn btn-primary">编辑</button-->
+                <button class="btn btn-danger" @click="deleteIndex=index;acceptModal.show()">删除</button>
               </td>
             </tr>
             </tbody>
@@ -36,15 +41,92 @@
         </div>
       </div>
     </div>
+    <div class="modal fade" id="articlesModal" tabindex="-1" aria-labelledby="articlesModalLabel" aria-hidden="true">
+      <div class="modal-dialog" style="max-width: 700px">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="articlesModalLabel">添加文章</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-floating mb-2 mt-2">
+                <input type="text" class="form-control" id="urlInput" v-model="addUrl">
+                <label for="urlInput">URL</label>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary" @click="submit">确定</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="acceptModal" tabindex="-1" aria-labelledby="acceptModalLabel" aria-hidden="true">
+      <div class="modal-dialog" style="max-width: 700px">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="acceptModalLabel">确认删除</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h5 style="float: left">确认删除该条记录？</h5>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary" @click="deleteArticle">确定</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import api from '@/utils/api'
+import Vue from 'vue'
 export default {
   name: 'Articles',
   data () {
     return {
-      articles: []
+      articles: [],
+      addUrl: '',
+      articleModal: null,
+      deleteIndex: -1
+    }
+  },
+  mounted () {
+    this.refresh()
+    // eslint-disable-next-line no-undef
+    this.articleModal = new bootstrap.Modal(document.getElementById('articlesModal'))
+    // eslint-disable-next-line no-undef
+    this.acceptModal = new bootstrap.Modal(document.getElementById('acceptModal'))
+  },
+  methods: {
+    refresh: async function () {
+      let res = await api.getArticles()
+      this.articles = res.data
+      this.deleteIndex = -1
+    },
+    submit: async function () {
+      let res = await api.addArticle(this.addUrl)
+      if (res !== 0) {
+        Vue.prototype.$error('添加出现错误')
+        return
+      }
+
+      Vue.prototype.$success('添加成功')
+      this.addUrl = ''
+      this.articleModal.hide()
+      this.refresh()
+    },
+    deleteArticle: async function () {
+      console.log(this.articles[this.deleteIndex]._id)
+      await api.delArticle(this.articles[this.deleteIndex]._id)
+      this.acceptModal.hide()
+      this.refresh()
+      Vue.prototype.$success('删除成功')
     }
   }
 }
