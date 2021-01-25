@@ -23,9 +23,13 @@
           </div>
           <div class="col-lg-1"/>
           <div class="col-lg-2">
-            <div class="form-check form-switch">
+            <div class="form-check form-switch mb-4">
               <input class="form-check-input" type="checkbox" id="recordSwitch" checked>
               <label class="form-check-label" for="recordSwitch">备案信息展示</label>
+            </div>
+            <div class="form-check form-switch mb-4">
+              <input class="form-check-input" type="checkbox" id="maintainSwitch" checked>
+              <label class="form-check-label" for="recordSwitch">开启维护</label>
             </div>
           </div>
         </div>
@@ -54,7 +58,7 @@
                 <input type="password" class="form-control">
                 <div class="form-text card-left">修改管理员密码</div>
               </div>
-              <button class="btn btn-danger" style="float: right">保存修改</button>
+              <button class="btn btn-danger" style="float: right" data-bs-toggle="modal" data-bs-target="#verifyModal">保存修改</button>
             </form>
           </div>
         </div>
@@ -69,11 +73,6 @@
           <div class="col-lg-8">
             <form>
               <div class="mb-5">
-                <label class="form-label card-left">验证码</label>
-                <input type="text" class="form-control">
-                <div class="form-text card-left">输入当前二次验证信息</div>
-              </div>
-              <div class="mb-5">
                 <label class="form-label card-left" >新密钥</label>
                 <input type="text" class="form-control" disabled>
                 <div class="form-text card-left">请在手机上导入密钥信息，或扫描二维码</div>
@@ -83,12 +82,35 @@
                 <input type="text" class="form-control">
                 <div class="form-text card-left">输入当前同步的新二次验证信息</div>
               </div>
-              <button class="btn btn-primary" style="float: right; margin-left: 1vw">保存修改</button>
+              <button class="btn btn-primary" style="float: right; margin-left: 1vw" data-bs-toggle="modal" data-bs-target="#verifyModal">保存修改</button>
               <button class="btn btn-info" style="float: right">生成新密钥</button>
             </form>
           </div>
           <div class="col-lg-1"/>
           <div class="col-lg-3"></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="verifyModal" tabindex="-1" aria-labelledby="verifyModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="verifyModalLabel">二次验证</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb5-">
+                <label class="form-label" style="float:left;">输入当前的Google验证码:</label>
+                <input type="text" class="form-control">
+                <div class="form-text" style="float: left">注意：在30min内，只有5次输入机会。</div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-danger">确定</button>
+          </div>
         </div>
       </div>
     </div>

@@ -31,7 +31,7 @@ const router = new Router({
       children: [
         {
           path: '',
-          name: 'Dashboard',
+          name: 'dashboard',
           component: Log,
           meta: {
             title: '仪表盘',
@@ -40,7 +40,7 @@ const router = new Router({
         },
         {
           path: 'carousel',
-          name: 'Carousel',
+          name: 'carousel',
           component: Carousel,
           meta: {
             title: '轮播图管理',
@@ -49,7 +49,7 @@ const router = new Router({
         },
         {
           path: 'personnel',
-          name: 'Personnel',
+          name: 'personnel',
           component: Personnel,
           meta: {
             title: '成员管理',
@@ -58,7 +58,7 @@ const router = new Router({
         },
         {
           path: 'articles',
-          name: 'Articles',
+          name: 'articles',
           component: Articles,
           meta: {
             title: '文章管理',
@@ -67,7 +67,7 @@ const router = new Router({
         },
         {
           path: 'setting',
-          name: 'Setting',
+          name: 'setting',
           component: Setting,
           meta: {
             title: '设置',

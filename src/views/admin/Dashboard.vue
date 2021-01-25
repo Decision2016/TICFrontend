@@ -40,6 +40,7 @@ export default {
   components: {Sidebar},
   data () {
     return {
+      profile: {},
       url: 'https://avatars0.githubusercontent.com/u/25838809?s=460&v=4'
     }
   }
@@ -64,7 +65,6 @@ export default {
     top: 0;
     overflow-y: auto;
     background: #fff;
-    border-right: 1px solid #e5ebec;
   }
 
   .profile-img {

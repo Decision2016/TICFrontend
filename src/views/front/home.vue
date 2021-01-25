@@ -4,7 +4,7 @@
     <div class="home-swiper row" style="width: 100%">
       <div class="col-lg-1"/>
       <div class="col-lg-6 col-xs-12">
-        <Swpier :urls="urls" :descriptions="descriptions" />
+        <Swpier :carousels="carousel" />
       </div>
       <div class="col-lg-4"><PersonnelCard :personnel="personnel"/></div>
 
@@ -35,13 +35,14 @@ import Swpier from '@/components/Swiper'
 import Navbar from '@/components/Navbar'
 import PersonnelCard from '@/components/PersonnelCard'
 import Article from '@/components/Article'
+import api from '@/utils/api'
 export default {
   name: 'Home',
   components: {Article, PersonnelCard, Navbar, Swpier},
   data () {
     return {
-      urls: ['./static/QQ图片20210113185921.png'],
-      descriptions: ['1', '2', '3'],
+      carousel: [],
+      personnel: [],
       articles: [
         {
           title: '7位顶尖科学家跨越4大洲如约而至｜2020腾讯科学WE大会',
@@ -57,29 +58,18 @@ export default {
           avatar: 'https://avatars0.githubusercontent.com/u/25838809?s=460&v=4',
           datetime: '2020-11-02'
         }
-      ],
-      personnel: [
-        {
-          name: 'Decision',
-          duties: '俱乐部副主席',
-          avator: 'https://avatars0.githubusercontent.com/u/25838809?s=460&v=4'
-        },
-        {
-          name: 'Decision',
-          duties: '俱乐部副主席',
-          avator: 'https://avatars0.githubusercontent.com/u/25838809?s=460&v=4'
-        },
-        {
-          name: 'Decision',
-          duties: '俱乐部副主席',
-          avator: 'https://avatars0.githubusercontent.com/u/25838809?s=460&v=4'
-        },
-        {
-          name: 'Decision',
-          duties: '俱乐部副主席',
-          avator: 'https://avatars0.githubusercontent.com/u/25838809?s=460&v=4'
-        }
       ]
+    }
+  },
+  mounted () {
+    this.refreshData()
+  },
+  methods: {
+    refreshData: async function () {
+      let res = await api.getCarousel()
+      this.carousel = res.data
+      res = await api.getPersonnel()
+      this.personnel = res.data
     }
   }
 }

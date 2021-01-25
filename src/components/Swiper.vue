@@ -2,14 +2,14 @@
   <div class="swiper">
     <div id="carousel" class="carousel slide carousel" data-bs-ride="carousel">
       <ol class="carousel-indicators">
-        <li data-bs-target="#carouselExampleCaptions" v-for="(item, index) in urls"  :data-bs-side-to="index" :class="index===0?'active':''" :key="index"></li>
+        <li data-bs-target="#carouselExampleCaptions" v-for="(item, index) in carousels"  :data-bs-side-to="index" :class="index===0?'active':''" :key="index"></li>
       </ol>
       <div class="carousel-inner full">
-        <div v-for="(item, index) in urls" :class="index===0?'carousel-item active':'carousel-item'" :key="index" style="position: relative">
+        <div v-for="(item, index) in carousels" :class="index===0?'carousel-item active':'carousel-item'" :key="index" style="position: relative">
           <!-- div class="blur" :style="{'background': 'url('+item+')'}" ></div=-->
-          <img id="show-images" class="img-fluid" :src="item" alt="..."/>
+          <img id="show-images" class="img-fluid" :src="item.url" alt="..."/>
           <div class="carousel-caption d-none d-md-block" >
-            <p>{{descriptions[index]}}</p>
+            <p>{{item.description}}</p>
           </div>
         </div>
       </div>
@@ -29,8 +29,7 @@
 export default {
   name: 'Swpier',
   props: {
-    urls: [],
-    descriptions: [],
+    carousels: [],
     auto: true,
     delay: 5000
   }

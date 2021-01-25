@@ -12,7 +12,7 @@
             <label for="usernameInput">Username</label>
           </div>
           <div class="form-floating mb-4">
-            <input type="text" class="form-control" id="passwordInput" v-model="password">
+            <input type="password" class="form-control" id="passwordInput" v-model="password">
             <label for="passwordInput">Password</label>
           </div>
           <button class="btn btn-primary" style="float: right" @click="login">登录</button>

@@ -4,7 +4,7 @@
       <div class="personnel-title">现任成员</div>
       <div class="title-line" style="border-bottom: solid 0.5px;color: #7e7e7e;"/>
       <div class="personnel-info" v-for="(item, index) in personnel" :key="index">
-        <img class="personnel-info-avatar" :src="item.avator" />
+        <img class="personnel-info-avatar" :src="item.avatar" />
         <div class="personnel-info-name-duties">
           <div class="info-name">{{item.name}}</div>
           <div class="info-duites">{{item.duties}}</div>

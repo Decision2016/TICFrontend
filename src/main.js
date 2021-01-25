@@ -4,9 +4,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store/index'
-import '../static/bootstrap.min.css'
+import bootstrap from '../static/bootstrap.min.css'
 import '../static/chartist.min.css'
+import vueCropper from 'vue-cropper'
 Vue.config.productionTip = false
+Vue.use(vueCropper)
+Vue.use(bootstrap)
 
 /* eslint-disable no-new */
 new Vue({
