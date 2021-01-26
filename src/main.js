@@ -8,15 +8,13 @@ import bootstrap from '../static/bootstrap.min.css'
 import 'view-design/dist/styles/iview.css'
 import '../static/chartist.min.css'
 import vueCropper from 'vue-cropper'
-import { Message } from 'view-design'
+import ViewUI from 'view-design'
 
 Vue.config.productionTip = false
 Vue.use(vueCropper)
+Vue.use(ViewUI)
 Vue.use(bootstrap)
 
-Vue.prototype.$Message = Message
-
-console.log(Vue.prototype)
 Vue.prototype.$Message.config({
   duration: 2
 })

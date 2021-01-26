@@ -54,6 +54,11 @@ export default {
 </script>
 
 <style scoped>
+  .left-part:hover {
+    color: white;
+
+  }
+
   .dashboard-bar {
     background: linear-gradient(to right,#0078bc 1%,#00beda 100%);
   }

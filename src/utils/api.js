@@ -25,6 +25,10 @@ export default{
     })
   },
 
+  logout () {
+    return ajax('/api/logout', 'get', {})
+  },
+
   info () {
     return ajax('/api/info', 'get', {})
   },
@@ -145,8 +149,12 @@ export default{
     return ajax('/api/articles', 'get', {})
   },
 
-  getArticles () {
-    return ajax('/api/articles_manage', 'get', {})
+  getArticles (page) {
+    return ajax('/api/articles_manage', 'get', {
+      params: {
+        page: page
+      }
+    })
   },
 
   addArticle (url, desc) {

@@ -11,6 +11,7 @@ import Setting from '@/views/admin/Setting'
 import Log from '@/views/admin/Log'
 import storage from '@/utils/storage'
 import Detail from '@/views/front/Detail'
+import List from '@/views/front/List'
 
 Vue.use(Router)
 
@@ -32,6 +33,15 @@ const router = new Router({
       component: Detail,
       meta: {
         title: '文章详情',
+        requiresAuth: false
+      }
+    },
+    {
+      path: '/list',
+      name: 'List',
+      component: List,
+      meta: {
+        title: '文章列表',
         requiresAuth: false
       }
     },

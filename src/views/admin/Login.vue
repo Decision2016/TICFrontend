@@ -8,14 +8,14 @@
         </div>
         <form>
           <div class="form-floating mb-4">
-            <input type="text" class="form-control" id="usernameInput" v-model="username">
+            <input type="text" class="form-control" placeholder="输入用户名" id="usernameInput" v-model="username">
             <label for="usernameInput">Username</label>
           </div>
           <div class="form-floating mb-4">
-            <input type="password" class="form-control" id="passwordInput" v-model="password">
+            <input type="password" class="form-control" placeholder="请输入密码" id="passwordInput" v-model="password">
             <label for="passwordInput">Password</label>
           </div>
-          <button class="btn btn-primary" style="float: right" @click="login">登录</button>
+          <button type="button" class="btn btn-primary" style="float: right" @click="login">登录</button>
         </form>
       </div>
     </div>
@@ -26,6 +26,7 @@
 import api from '@/utils/api'
 import { JSEncrypt } from 'jsencrypt'
 import { mapActions } from 'vuex'
+import Vue from 'vue'
 export default {
   name: 'Login',
   data () {
@@ -67,10 +68,16 @@ export default {
       let ciphertext = jse.encrypt(plaintext)
       res = await api.login(this.mark_info, ciphertext)
       if (res.code === 0) {
-        console.log('test')
         this.getProfile()
-        this.$router.push('/admin')
+        let that = this
+        setTimeout(function () {
+          that.$router.push('/admin')
+          Vue.prototype.$success('登录成功')
+        }, 200)
+      } else if (res.code === 5) {
+        Vue.prototype.$success('登录请求太频繁')
       }
+      Vue.prototype.$success('密码错误或用户不存在')
     }
   }
 }

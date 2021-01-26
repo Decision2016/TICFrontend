@@ -155,6 +155,7 @@ export default {
       let res = await api.generateSecret()
       this.new_sec = res.data.sec
       this.qrcode_url = 'otpauth://totp/' + this.userInfo.username + ':' + this.userInfo.email + '?secret=' + res.data.sec + '&issuer=TIC-Website'
+      this.$refs.qrcode.innerHTML = ''
       // eslint-disable-next-line no-unused-vars
       const qrcode = new QRCode(this.$refs.qrcode, {
         text: this.qrcode_url,
@@ -167,29 +168,39 @@ export default {
     },
     changeVerify: async function () {
       let res = await api.changeSecret(this.code, this.new_sec, this.new_code)
-      console.log(res)
-      this.isChangeVerify = false
-      this.refreshData()
-      this.verifyModal.hide()
-      Vue.prototype.$success('修改成功')
-    },
-    changeUser: async function () {
-      let res = await api.changeUserInfo(this.userInfo.username, this.password, this.userInfo.email, this.code)
-      if (res.code !== 0) {
-        Vue.prototype.$error('验证信息错误或尝试次数太多')
+      if (res.code === -1) {
+        Vue.prototype.$error('验证信息错误')
+        return
+      } else if (res.code === 5) {
+        Vue.prototype.$error('尝试次数太多')
         return
       }
-      this.isChangeVerify = false
       this.refreshData()
-      this.verifyModal.hide()
+      Vue.prototype.$success('修改成功')
+    },
+    // todo: 优化重复代码
+    changeUser: async function () {
+      let res = await api.changeUserInfo(this.userInfo.username, this.password, this.userInfo.email, this.code)
+      if (res.code === -1) {
+        Vue.prototype.$error('验证信息错误')
+        return
+      } else if (res.code === 5) {
+        Vue.prototype.$error('尝试次数太多')
+        return
+      }
+      this.refreshData()
       Vue.prototype.$success('修改成功')
     },
     accept () {
       if (this.isChangeVerify) {
         this.changeVerify()
+        this.verifyModal.hide()
+        this.isChangeVerify = false
       }
       if (this.isChangeUser) {
         this.changeUser()
+        this.verifyModal.hide()
+        this.isChangeUser = false
       }
     },
     changeWebsiteInfo: async function () {

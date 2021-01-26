@@ -4,7 +4,7 @@
       <div class="card-body">
         <div class="card-title">
           <button class="btn btn-primary" style="float: right" data-bs-toggle="modal" data-bs-target="#articlesModal">添加新文章</button>
-          <button class="btn btn-primary" style="float: right; margin-right: 1vw">
+          <button class="btn btn-primary" style="float: right; margin-right: 1vw" @click="refresh">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
               <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
@@ -46,8 +46,10 @@
             </tr>
             </tbody>
           </table>
+
         </div>
       </div>
+      <Page :total="total" show-elevator :onchange="changePage" class="mb-4"></Page>
     </div>
     <div class="modal fade" id="articlesModal" tabindex="-1" aria-labelledby="articlesModalLabel" aria-hidden="true">
       <div class="modal-dialog" style="max-width: 700px">
@@ -106,7 +108,8 @@ export default {
       addUrl: '',
       addDesc: '',
       articleModal: null,
-      deleteIndex: -1
+      deleteIndex: -1,
+      total: -1
     }
   },
   mounted () {
@@ -120,19 +123,21 @@ export default {
     refresh: async function () {
       let res = await api.getArticles()
       this.articles = res.data
+      this.total = res.total
       this.deleteIndex = -1
     },
     submit: async function () {
-      let res = await api.addArticle(this.addUrl, this.addDesc)
-      if (res !== 0) {
-        Vue.prototype.$error('添加出现错误')
-        return
-      }
+      // let res = await api.addArticle(this.addUrl, this.addDesc)
+      // if (res !== 0) {
+      //  Vue.prototype.$error('添加出现错误')
+      //  return
+      // }
 
       Vue.prototype.$success('添加成功')
-      this.addUrl = ''
       this.articleModal.hide()
       this.refresh()
+      this.addUrl = ''
+      this.addDesc = ''
     },
     deleteArticle: async function () {
       console.log(this.articles[this.deleteIndex]._id)
@@ -140,6 +145,10 @@ export default {
       this.acceptModal.hide()
       this.refresh()
       Vue.prototype.$success('删除成功')
+    },
+    changePage: async function (index) {
+      let res = await api.getArticles(index)
+      this.articles = res.data
     }
   }
 }
