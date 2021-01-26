@@ -149,10 +149,11 @@ export default{
     return ajax('/api/articles_manage', 'get', {})
   },
 
-  addArticle (url) {
+  addArticle (url, desc) {
     return ajax('/api/articles_manage', 'post', {
       data: {
-        vx_url: url
+        vx_url: url,
+        desc: desc
       }
     })
   },

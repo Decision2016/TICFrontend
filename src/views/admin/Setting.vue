@@ -18,7 +18,7 @@
                 <input type="text" class="form-control" v-model="websiteInfo.record">
                 <div class="form-text card-left">备案信息填写，如果没有留空</div>
               </div>
-              <button class="btn btn-primary" style="float: right" @click="changeWebsiteInfo">保存修改</button>
+              <button type="button" class="btn btn-primary" style="float: right" @click="changeWebsiteInfo">保存修改</button>
             </form>
           </div>
           <div class="col-lg-1"/>
@@ -58,7 +58,7 @@
                 <input type="password" class="form-control" v-model="password">
                 <div class="form-text card-left">修改管理员密码</div>
               </div>
-              <button class="btn btn-danger" style="float: right" data-bs-toggle="modal" data-bs-target="#verifyModal" @click="isChangeUser=true">保存修改</button>
+              <button type="button" class="btn btn-danger" style="float: right" data-bs-toggle="modal" data-bs-target="#verifyModal" @click="isChangeUser=true">保存修改</button>
             </form>
           </div>
         </div>
@@ -82,8 +82,8 @@
                 <input type="text" class="form-control" v-model="new_code">
                 <div class="form-text card-left">输入当前同步的新二次验证信息</div>
               </div>
-              <button class="btn btn-primary" style="float: right; margin-left: 1vw" data-bs-toggle="modal" data-bs-target="#verifyModal" @click="isChangeVerify = true">保存修改</button>
-              <button class="btn btn-info" style="float: right" @click="generateSec">生成新密钥</button>
+              <button type="button" class="btn btn-primary" style="float: right; margin-left: 1vw" data-bs-toggle="modal" data-bs-target="#verifyModal" @click="isChangeVerify = true">保存修改</button>
+              <button type="button" class="btn btn-info" style="float: right" @click="generateSec">生成新密钥</button>
             </form>
           </div>
           <div class="col-lg-1"/>

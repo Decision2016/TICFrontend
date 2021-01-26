@@ -19,8 +19,14 @@
             <p class="footer-about-title">Others</p>
             <a href="/" class="footer-about-list">FAQs</a>
             <a href="/" class="footer-about-list">帮助 Help</a>
-            <a href="/" class="footer-about-list">支持 Support</a>
-            <a href="/" class="footer-about-list">博客 Blog</a>
+            <a href="https://lexiangla.com/teams/k100021" class="footer-about-list" target="_blank">乐享平台</a>
+            <a href="https://tic-uestc.github.io/" class="footer-about-list" target="_blank">博客 Blog</a>
+            <div class="footer-about-list" style="color: white;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+              </svg>
+              <a href="https://github.com/TIC-UESTC" target="_blank">Github</a>
+            </div>
           </div>
         </div>
       </div>
@@ -45,31 +51,14 @@ export default {
       carousel: [],
       personnel: [],
       websiteInfo: {},
-      articles: [
-        {
-          title: '7位顶尖科学家跨越4大洲如约而至｜2020腾讯科学WE大会',
-          author: '成电小二',
-          about: '2020年，是“暗淡蓝点”照片被记录下的三十周年纪念。地球在这张照片上只有0.1像素，他让人类深刻地意识到自身的渺小，也理解了何为“休戚与共”这张照片的命名者卡尔·萨根说：“看看那个光点，那是我们的家园，我们的一切。你所爱的每一个人，你认识的每一个人，你听说过的每一个人，曾经有过的每一个人，都在它上面度过他们的一生。”此时此刻，全球很多地方都处于疫情隔离状态。疫情改变了很多事。不变的是，7位来自4大洲、6个国家的顶尖科学家，将跨越时差、跨越距离、跨越眼前的困难，齐聚2020腾讯科学WE大会。',
-          avatar: 'https://avatars0.githubusercontent.com/u/25838809?s=460&v=4',
-          datetime: '2020-11-02'
-        },
-        {
-          title: '7位顶尖科学家跨越4大洲如约而至｜2020腾讯科学WE大会',
-          author: '成电小二',
-          about: '2020年，是“暗淡蓝点”照片被记录下的三十周年纪念。地球在这张照片上只有0.1像素，他让人类深刻地意识到自身的渺小，也理解了何为“休戚与共”这张照片的命名者卡尔·萨根说：“看看那个光点，那是我们的家园，我们的一切。你所爱的每一个人，你认识的每一个人，你听说过的每一个人，曾经有过的每一个人，都在它上面度过他们的一生。”此时此刻，全球很多地方都处于疫情隔离状态。疫情改变了很多事。不变的是，7位来自4大洲、6个国家的顶尖科学家，将跨越时差、跨越距离、跨越眼前的困难，齐聚2020腾讯科学WE大会。',
-          avatar: 'https://avatars0.githubusercontent.com/u/25838809?s=460&v=4',
-          datetime: '2020-11-02'
-        }
-      ]
+      articles: []
     }
   },
-  mounted: async function () {
-    let res = await api.getCarousel()
-    this.carousel = res.data
-    res = await api.getPersonnel()
-    this.personnel = res.data
-    res = await api.websiteInfo()
-    this.websiteInfo = res.data
+  beforeCreate: async function () {
+    this.carousel = (await api.getCarousel()).data
+    this.personnel = (await api.getPersonnel()).data
+    this.websiteInfo = (await api.websiteInfo()).data
+    this.articles = (await api.getArticles()).data
   }
 }
 </script>
@@ -85,7 +74,7 @@ export default {
 
   .footer-about-title {
     font-size: 20px;
-    color: #fff;
+    color:white;
     font-weight: 600;
   }
 

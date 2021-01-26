@@ -4,15 +4,15 @@
     <div class="article-item col-lg-6">
       <div class="article-title">{{info.title}}</div>
       <div class="article-about">
-        {{info.about}}
+        {{info.description}}
       </div>
       <div class="article-footer" style="margin-top: 1vw">
         <div class="article-author">
           <!--img class="author-avatar" :src="info.avatar"/-->
           <div class="author-name">{{info.author}}</div>
         </div>
-        <div class="article-time">时间：{{info.datetime}}</div>
-        <a class="article-readmore" :href="info.url">阅读更多</a>
+        <div class="article-time">时间：{{info.date}}</div>
+        <a class="article-readmore" @click="jumpToArticle">阅读更多</a>
       </div>
     </div>
   </div>
@@ -23,6 +23,16 @@ export default {
   name: 'Article',
   props: {
     info: {}
+  },
+  methods: {
+    jumpToArticle () {
+      this.$router.push({
+        path: '/detail',
+        query: {
+          id: this.info._id
+        }
+      })
+    }
   }
 }
 </script>
@@ -35,7 +45,6 @@ export default {
   }
 
   .article-author {
-    padding: 10px;
     display: flex;
     float: left;
     align-items: center;

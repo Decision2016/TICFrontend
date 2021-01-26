@@ -28,11 +28,7 @@
 <script>
 export default {
   name: 'Swpier',
-  props: {
-    carousels: [],
-    auto: true,
-    delay: 5000
-  }
+  props: ['carousels', 'auto', 'delay']
 }
 </script>
 

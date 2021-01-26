@@ -17,9 +17,7 @@
 <script>
 export default {
   name: 'PersonnelCard',
-  props: {
-    personnel: []
-  }
+  props: ['personnel']
 }
 </script>
 

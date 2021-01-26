@@ -16,9 +16,9 @@
           <div class="sidebar-scrollbar" style="overflow: hidden; width: auto; height: 100%;">
             <div class="user-profile">
               <div class="profile-image">
-                <img :src="url" class="profile-img"/>
+                <img :src="profile.url" class="profile-img"/>
               </div>
-              <p class="profile-text">Decision</p>
+              <p class="profile-text">{{profile.username}}</p>
             </div>
             <Sidebar/>
           </div>
@@ -35,14 +35,20 @@
 
 <script>
 import Sidebar from '@/components/Sidebar'
+import api from '@/utils/api'
 export default {
   name: 'Dashboard',
   components: {Sidebar},
   data () {
     return {
-      profile: {},
-      url: 'https://avatars0.githubusercontent.com/u/25838809?s=460&v=4'
+      profile: {}
     }
+  },
+  mounted: async function () {
+    this.profile = (await api.info()).data
+    console.log(this.profile)
+    // eslint-disable-next-line no-undef
+    this.profile.url = 'https://cdn.v2ex.com/gravatar/' + md5(this.profile.email) + '?s=128'
   }
 }
 </script>

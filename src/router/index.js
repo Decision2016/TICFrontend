@@ -15,6 +15,7 @@ import Detail from '@/views/front/Detail'
 Vue.use(Router)
 
 const router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',

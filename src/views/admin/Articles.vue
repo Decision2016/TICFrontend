@@ -27,9 +27,17 @@
             <tr v-for="(item, index) in articles" :key="index">
               <!--td><img :src="item.avatar" style="width: 3vw;height: 3vw" class="personnel-avatar"></td-->
               <td>{{index + 1}}</td>
-              <td>{{item.title}}</td>
+              <td>
+                <div class="item-title">
+                  {{item.title}}
+                </div>
+              </td>
               <td>{{item.author}}</td>
-              <td>{{item.description}}</td>
+              <td>
+                <div class="item-context">
+                  {{item.description}}
+                </div>
+              </td>
               <td>{{item.date}}</td>
               <td>
                 <!--button class="btn btn-primary">编辑</button-->
@@ -50,9 +58,13 @@
           </div>
           <div class="modal-body">
             <form>
-              <div class="form-floating mb-2 mt-2">
-                <input type="text" class="form-control" id="urlInput" v-model="addUrl">
+              <div class="form-floating mb-3 mt-3">
+                <input type="text" class="form-control" placeholder="请输入URL" id="urlInput" v-model="addUrl">
                 <label for="urlInput">URL</label>
+              </div>
+              <div class="form-floating mb-3 mt-3" >
+                <textarea class="form-control" v-model="addDesc" placeholder="在此处填写文章摘要" id="descInput" style="min-height: 15vw"></textarea>
+                <label for="descInput" >Description</label>
               </div>
             </form>
           </div>
@@ -92,6 +104,7 @@ export default {
     return {
       articles: [],
       addUrl: '',
+      addDesc: '',
       articleModal: null,
       deleteIndex: -1
     }
@@ -110,7 +123,7 @@ export default {
       this.deleteIndex = -1
     },
     submit: async function () {
-      let res = await api.addArticle(this.addUrl)
+      let res = await api.addArticle(this.addUrl, this.addDesc)
       if (res !== 0) {
         Vue.prototype.$error('添加出现错误')
         return
@@ -146,5 +159,21 @@ export default {
     border-radius: 50%;
     border: solid 0.5px;
     border-color: #d6d3d3;
+  }
+
+  .item-context {
+    width: 25vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+  }
+
+  .item-title {
+    width: 20vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
   }
 </style>
