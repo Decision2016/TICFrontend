@@ -127,11 +127,11 @@ export default {
       this.deleteIndex = -1
     },
     submit: async function () {
-      // let res = await api.addArticle(this.addUrl, this.addDesc)
-      // if (res !== 0) {
-      //  Vue.prototype.$error('添加出现错误')
-      //  return
-      // }
+      let res = await api.addArticle(this.addUrl, this.addDesc)
+      if (res !== 0) {
+        Vue.prototype.$error('添加出现错误')
+        return
+      }
 
       Vue.prototype.$success('添加成功')
       this.articleModal.hide()

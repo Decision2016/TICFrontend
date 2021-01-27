@@ -12,6 +12,7 @@ import Log from '@/views/admin/Log'
 import storage from '@/utils/storage'
 import Detail from '@/views/front/Detail'
 import List from '@/views/front/List'
+import NotFound from '@/views/front/404'
 
 Vue.use(Router)
 
@@ -126,6 +127,15 @@ const router = new Router({
       meta: {
         title: '登出',
         requiresAuth: true
+      }
+    },
+    {
+      path: '/*',
+      name: '404',
+      component: NotFound,
+      meta: {
+        title: '404 Not Found',
+        requiresAuth: false
       }
     }
   ]

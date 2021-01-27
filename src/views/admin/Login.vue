@@ -76,8 +76,9 @@ export default {
         }, 200)
       } else if (res.code === 5) {
         Vue.prototype.$success('登录请求太频繁')
+      } else {
+        Vue.prototype.$success('密码错误或用户不存在')
       }
-      Vue.prototype.$success('密码错误或用户不存在')
     }
   }
 }
