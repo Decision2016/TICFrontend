@@ -128,19 +128,18 @@ export default {
     },
     submit: async function () {
       let res = await api.addArticle(this.addUrl, this.addDesc)
-      if (res !== 0) {
+      if (res.code !== 0) {
         Vue.prototype.$error('添加出现错误')
         return
       }
 
-      Vue.prototype.$success('添加成功')
       this.articleModal.hide()
+      Vue.prototype.$success('添加成功')
       this.refresh()
       this.addUrl = ''
       this.addDesc = ''
     },
     deleteArticle: async function () {
-      console.log(this.articles[this.deleteIndex]._id)
       await api.delArticle(this.articles[this.deleteIndex]._id)
       this.acceptModal.hide()
       this.refresh()
