@@ -13,6 +13,7 @@ import storage from '@/utils/storage'
 import Detail from '@/views/front/Detail'
 import List from '@/views/front/List'
 import NotFound from '@/views/front/404'
+import Maintain from '@/views/front/Maintain'
 
 Vue.use(Router)
 
@@ -130,6 +131,15 @@ const router = new Router({
       }
     },
     {
+      path: '/maintain',
+      name: 'Maintain',
+      component: Maintain,
+      meta: {
+        title: '维护中...',
+        requiresAuth: false
+      }
+    },
+    {
       path: '/*',
       name: '404',
       component: NotFound,
@@ -143,21 +153,22 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    console.log(storage.get('authed'))
     if (!storage.get('authed')) {
       next({
         name: 'Login'
       })
     } else {
+      // 认证用户访问认证界面
       next()
     }
   } else {
+    // 非认证界面且用户非认证
     next()
   }
   next()
 
   if (to.meta.title) {
-    document.title = to.meta.title
+    document.title = to.meta.title + ' - TIC'
   }
   next()
 })
