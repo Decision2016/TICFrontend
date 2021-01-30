@@ -14,6 +14,7 @@ import Detail from '@/views/front/Detail'
 import List from '@/views/front/List'
 import NotFound from '@/views/front/404'
 import Maintain from '@/views/front/Maintain'
+import api from '@/utils/api'
 
 Vue.use(Router)
 
@@ -151,7 +152,7 @@ const router = new Router({
   ]
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!storage.get('authed')) {
       next({
@@ -162,8 +163,16 @@ router.beforeEach((to, from, next) => {
       next()
     }
   } else {
-    // 非认证界面且用户非认证
-    next()
+    // todo： 存在问题： 路由无限跳转
+    let res = await api.websiteInfo()
+    if (res.data.maintain) {
+      next({
+        name: 'Maintain'
+      })
+    } else {
+      // 非认证界面且用户非认证
+      next()
+    }
   }
   next()
 

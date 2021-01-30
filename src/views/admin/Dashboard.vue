@@ -46,7 +46,6 @@ export default {
   },
   mounted: async function () {
     this.profile = (await api.info()).data
-    console.log(this.profile)
     // eslint-disable-next-line no-undef
     this.profile.url = 'https://cdn.v2ex.com/gravatar/' + md5(this.profile.email) + '?s=128'
   }
