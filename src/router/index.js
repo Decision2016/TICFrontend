@@ -14,11 +14,11 @@ import Detail from '@/views/front/Detail'
 import List from '@/views/front/List'
 import NotFound from '@/views/front/404'
 import Maintain from '@/views/front/Maintain'
-import api from '@/utils/api'
 
 Vue.use(Router)
 
-const router = new Router({
+let router
+router = new Router({
   mode: 'history',
   routes: [
     {
@@ -163,9 +163,8 @@ router.beforeEach(async (to, from, next) => {
       next()
     }
   } else {
-    // todo： 存在问题： 路由无限跳转
-    let res = await api.websiteInfo()
-    if (res.data.maintain) {
+    if (storage.get('maintain')) {
+      console.log('test')
       next({
         name: 'Maintain'
       })

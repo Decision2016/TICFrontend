@@ -55,9 +55,14 @@ export default {
     }
   },
   beforeCreate: async function () {
+    this.websiteInfo = (await api.websiteInfo()).data
+
+    if (this.websiteInfo.maintain) {
+      this.$router.push('maintain')
+    }
+
     this.carousel = (await api.getCarousel()).data
     this.personnel = (await api.getPersonnel()).data
-    this.websiteInfo = (await api.websiteInfo()).data
     this.articles = (await api.getArticles()).data
   }
 }

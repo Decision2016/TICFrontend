@@ -47,6 +47,12 @@ export default {
       let res = await api.getArticles(index)
       this.articles = res.data
     }
+  },
+  beforeCreate: async function () {
+    let res = api.websiteInfo()
+    if (res.data.maintain) {
+      this.$router.push('maintain')
+    }
   }
 }
 </script>

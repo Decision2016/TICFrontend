@@ -7,7 +7,8 @@ import api from '@/utils/api'
 Vue.use(Vuex)
 
 const state = {
-  profile: {}
+  profile: {},
+  website: {}
 }
 
 const getters = {
@@ -20,8 +21,12 @@ const getters = {
 const mutations = {
   [types.CHANGE_PROFILE] (state, {profile}) {
     state.profile = profile
-    console.log(profile)
     storage.set('authed', !!profile)
+  },
+  [types.CHANGE_INFO] (state, {website}) {
+    console.log(website)
+    state.website = website
+    storage.set('maintain', website.maintain)
   }
 }
 
@@ -30,6 +35,13 @@ const actions = {
     api.info().then(res => {
       commit(types.CHANGE_PROFILE, {
         profile: res.data
+      })
+    })
+  },
+  getWebsiteInfo ({commit}) {
+    api.websiteInfo().then(res => {
+      commit(types.CHANGE_INFO, {
+        website: res.data
       })
     })
   },

@@ -10,5 +10,6 @@ function keyMirror (obj) {
 }
 
 export default keyMirror({
-  'CHANGE_PROFILE': null
+  'CHANGE_PROFILE': null,
+  'CHANGE_INFO': null
 })

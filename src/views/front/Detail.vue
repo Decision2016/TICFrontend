@@ -21,6 +21,12 @@ export default {
 
     let res = await api.getArticle(id)
     this.context = res.data.context
+  },
+  beforeCreate: async function () {
+    let res = api.websiteInfo()
+    if (res.data.maintain) {
+      this.$router.push('maintain')
+    }
   }
 }
 </script>
