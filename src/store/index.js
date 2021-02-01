@@ -24,7 +24,6 @@ const mutations = {
     storage.set('authed', !!profile)
   },
   [types.CHANGE_INFO] (state, {website}) {
-    console.log(website)
     state.website = website
     storage.set('maintain', website.maintain)
   }

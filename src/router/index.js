@@ -164,7 +164,6 @@ router.beforeEach(async (to, from, next) => {
     }
   } else {
     if (storage.get('maintain')) {
-      console.log('test')
       next({
         name: 'Maintain'
       })
